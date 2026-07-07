@@ -128,5 +128,56 @@ margin-left:0;
 nav a{
 display:block;
 margin:8px 0;
+}.card{
+background:#fff;
+padding:18px;
+margin:15px 0;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.live,.news,.upcoming{
+max-width:1100px;
+margin:30px auto;
+}
+
+.hero{
+padding:60px 20px;
+}
+
+.hero button:hover{
+background:#1565c0;
+}
+
+footer{
+margin-top:60px;
+}
+
+@media(max-width:768px){
+
+nav a{
+display:block;
+margin:15px 0;
+}
+
+.hero h2{
+font-size:28px;
+}
+
+.hero input{
+width:100%;
+margin-bottom:15px;
+}
+
+.hero button{
+width:100%;
+margin-left:0;
+}
+
 }
 }
