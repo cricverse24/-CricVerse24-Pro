@@ -2,8 +2,7 @@ import { db } from "./firebase.js";
 import {
   collection,
   getDocs,
-  query,
-  orderBy
+  
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 const apiKey = "31090fe2-48a3-4286-b565-aa560a422e64";
 
@@ -51,8 +50,8 @@ async function loadNews() {
   newsDiv.innerHTML = "<p>Loading news...</p>";
 
   try {
-    const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
-    const snapshot = await getDocs(q);
+const snapshot = await getDocs(collection(db, "news"));
+
 
     newsDiv.innerHTML = "";
 
