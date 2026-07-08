@@ -1,3 +1,10 @@
+import { db } from "./firebase.js";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 const apiKey = "31090fe2-48a3-4286-b565-aa560a422e64";
 
 // Live Matches
@@ -39,23 +46,37 @@ loadLiveMatches();
 
 
 // Latest News
-document.getElementById("news").innerHTML = `
-<div class="card">
-<h3>Pakistan vs India Match Preview</h3>
-<p>Complete preview, probable playing XI and pitch report.</p>
-</div>
+async function loadNews() {
+  const newsDiv = document.getElementById("news");
+  newsDiv.innerHTML = "<p>Loading news...</p>";
 
-<div class="card">
-<h3>Babar Azam Latest Performance</h3>
-<p>Babar Azam ki recent form aur records.</p>
-</div>
+  try {
+    const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
 
-<div class="card">
-<h3>ICC Rankings Update</h3>
-<p>Latest ICC Team aur Player Rankings.</p>
-</div>
-`;
+    newsDiv.innerHTML = "";
 
+    snapshot.forEach((doc) => {
+      const news = doc.data();
+
+      newsDiv.innerHTML += `
+        <div class="card">
+          <h3>${news.title}</h3>
+          <p>${news.content}</p>
+        </div>
+      `;
+    });
+
+    if (snapshot.empty) {
+      newsDiv.innerHTML = "<p>No news available.</p>";
+    }
+  } catch (error) {
+    console.log(error);
+    newsDiv.innerHTML = "<p>Unable to load news.</p>";
+  }
+}
+
+loadNews();
 
 // Upcoming Matches
 document.getElementById("upcoming").innerHTML = `
