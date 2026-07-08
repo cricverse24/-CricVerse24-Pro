@@ -13,9 +13,9 @@ async function loadLiveMatches() {
   live.innerHTML = "<p>Loading...</p>";
 
   try {
-    const response = await fetch(
-      `https://api.cricketdata.org/v1/currentMatches?apikey=${apiKey}&offset=0` 
-    );
+  const response = await fetch(
+  `https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`
+);
 
     const data = await response.json();
 
