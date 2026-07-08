@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://cricverse24.github.io/-CricVerse24-Pro/sitemap.xml
