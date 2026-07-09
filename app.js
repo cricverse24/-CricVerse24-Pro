@@ -7,37 +7,70 @@ import {
 const apiKey = "31090fe2-48a3-4286-b565-aa560a422e64";
 
 // ================= LIVE MATCHES =================
+// Live Matches
 async function loadLiveMatches() {
   const live = document.getElementById("liveMatches");
-  live.innerHTML = "<p>Loading Live Matches...</p>";
+  live.innerHTML = "<p>Loading...</p>";
+
+  const CACHE_KEY = "cricverse_live_matches";
+  const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
+
+  // Check cache
+  const cached = localStorage.getItem(CACHE_KEY);
+
+  if (cached) {
+    const cacheData = JSON.parse(cached);
+
+    if (Date.now() - cacheData.time < CACHE_TIME) {
+      displayMatches(cacheData.data);
+      return;
+    }
+  }
 
   try {
     const response = await fetch(
       `https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`
     );
 
-    const result = await response.json();
+    const data = await response.json();
 
-    if (!result.data || result.data.length === 0) {
+    if (data.status === "failure") {
+      live.innerHTML = `<p>${data.reason}</p>`;
+      return;
+    }
+
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({
+        time: Date.now(),
+        data: data.data,
+      })
+    );
+
+    displayMatches(data.data);
+
+  } catch (error) {
+    console.log(error);
+    live.innerHTML = "<p>Unable to load live matches.</p>";
+  }
+
+  function displayMatches(matches) {
+    if (!matches || matches.length === 0) {
       live.innerHTML = "<p>No Live Matches Right Now</p>";
       return;
     }
 
     live.innerHTML = "";
 
-    result.data.forEach(match => {
+    matches.forEach(match => {
       live.innerHTML += `
-      <div class="card">
-        <h3>${match.name || "Cricket Match"}</h3>
-        <p><strong>Status:</strong> ${match.status || "N/A"}</p>
-        <p><strong>Teams:</strong> ${match.teams ? match.teams.join(" vs ") : "N/A"}</p>
-        <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
-      </div>`;
+        <div class="card">
+          <h3>${match.name}</h3>
+          <p><strong>Status:</strong> ${match.status}</p>
+          <p><strong>Match Type:</strong> ${match.matchType}</p>
+        </div>
+      `;
     });
-
-  } catch (error) {
-    console.log(error);
-    live.innerHTML = "<p>Unable to load live matches.</p>";
   }
 }
 
