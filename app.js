@@ -26,13 +26,32 @@ async function loadLiveMatches() {
     live.innerHTML = "";
 
     result.data.forEach(match => {
-      live.innerHTML += `
-      <div class="card">
-        <h3>${match.name || "Cricket Match"}</h3>
-        <p><strong>Status:</strong> ${match.status || "N/A"}</p>
-        <p><strong>Teams:</strong> ${match.teams ? match.teams.join(" vs ") : "N/A"}</p>
-        <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
-      </div>`;
+    live.innerHTML += `
+<div class="card">
+<h3>${match.name || "Cricket Match"}</h3>
+
+<p><strong>Status:</strong> ${match.status || "N/A"}</p>
+
+<p><strong>Score:</strong><br>
+${
+Array.isArray(match.score) && match.score.length
+? match.score.map(s =>
+`${s.inning}: ${s.r ?? "-"} / ${s.w ?? "-"} (${s.o ?? "-"} Ov)`
+).join("<br>")
+: "Score not available"
+}
+</p>
+
+<p><strong>Toss:</strong> ${match.toss || "Not Available"}</p>
+
+<p><strong>Venue:</strong> ${match.venue || "Not Available"}</p>
+
+<p><strong>Result:</strong> ${match.matchWinner || match.result || "Pending"}</p>
+
+<p><strong>Teams:</strong> ${match.teams ? match.teams.join(" vs ") : "N/A"}</p>
+
+<p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
+</div>`;
     });
 
   } catch (error) {
