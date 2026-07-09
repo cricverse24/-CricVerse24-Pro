@@ -94,3 +94,32 @@ document.getElementById("upcoming").innerHTML = `
 <p>Saturday - 2:00 PM</p>
 </div>
 `;
+const searchInput = document.querySelector('input');
+const searchButton = document.querySelector('button');
+
+const pages = {
+  "babar azam": "babar-azam.html",
+  "virat kohli": "virat-kohli.html",
+  "shahid afridi": "shahid-afridi.html",
+  "shaheen afridi": "shaheen-afridi.html",
+  "haris rauf": "haris-rauf.html",
+  "fakhar zaman": "fakhar-zaman.html",
+  "mohammad rizwan": "mohammad-rizwan.html",
+  "naseem shah": "naseem-shah.html"
+};
+
+searchButton.addEventListener("click", () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (pages[query]) {
+    window.location.href = pages[query];
+  } else {
+    alert("Article not found");
+  }
+});
+
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    searchButton.click();
+  }
+});
