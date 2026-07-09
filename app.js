@@ -69,11 +69,15 @@ async function loadLiveMatches() {
 
     <p><strong>Status:</strong> ${match.status || "N/A"}</p>
 
-    <p><strong>Score:</strong> ${
-        match.score
-            ? match.score.map(s => `${s.inning}: ${s.r}/${s.w} (${s.o} ov)`).join("<br>")
-            : "Not Available"
-    }</p>
+    <p><strong>Score:</strong><br>
+${
+  Array.isArray(match.score) && match.score.length
+    ? match.score.map(s =>
+        `${s.inning || ""}: ${s.r ?? "-"} / ${s.w ?? "-"} (${s.o ?? "-"} ov)`
+      ).join("<br>")
+    : "Live score not available yet"
+}
+</p>
 
     <p><strong>Toss:</strong> ${match.toss || "Not Available"}</p>
 
