@@ -96,15 +96,9 @@ ${
     <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
 </div>
 `;
-    });
-  }
-}
-
+  
 loadLiveMatches();
-setInterval(() => {
-  localStorage.removeItem("cricverse_live_matches");
-  loadLiveMatches();
-}, 60000);
+
 // ================= NEWS =================
 async function loadNews() {
   const newsDiv = document.getElementById("news");
