@@ -55,10 +55,20 @@ async function loadLiveMatches() {
   }
 
   function displayMatches(matches) {
-    if (!matches || matches.length === 0) {
-      live.innerHTML = "<p>No Live Matches Right Now</p>";
-      return;
-    }
+    matches = matches.filter(match =>
+  match.matchStarted && !match.matchEnded
+);
+
+if (matches.length === 0) {
+  live.innerHTML = `
+    <div class="card">
+      <h3>🏏 No Live Match Right Now</h3>
+      <p>Please check again in a few minutes.</p>
+    </div>
+  `;
+  return;
+}
+  
 
     live.innerHTML = "";
 
@@ -93,7 +103,10 @@ ${
 }
 
 loadLiveMatches();
-
+setInterval(() => {
+  localStorage.removeItem("cricverse_live_matches");
+  loadLiveMatches();
+}, 60000);
 // ================= NEWS =================
 async function loadNews() {
   const newsDiv = document.getElementById("news");
