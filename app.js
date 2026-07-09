@@ -55,9 +55,7 @@ async function loadLiveMatches() {
   }
 
   function displayMatches(matches) {
-    matches = matches.filter(match =>
-  match.matchStarted && !match.matchEnded
-);
+    
 
 if (matches.length === 0) {
   live.innerHTML = `
