@@ -1,32 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://cricverse24.github.io/-CricVerse24-Pro/</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/</loc>
+</url>
 
-  <url>
-    <loc>https://cricverse24.github.io/-CricVerse24-Pro/blog.html</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/babar-azam.html</loc>
+</url>
 
-  <url>
-    <loc>https://cricverse24.github.io/-CricVerse24-Pro/cricket-records.html</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/virat-kohli.html</loc>
+</url>
 
-  <url>
-    <loc>https://cricverse24.github.io/-CricVerse24-Pro/match-prediction.html</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/shahid-afridi.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/shaheen-afridi.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/haris-rauf.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/fakhar-zaman.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/mohammad-rizwan.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/naseem-shah.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/saim-ayub.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/pakistan-vs-india.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/pakistan-team.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/match-prediction.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/cricket-records.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/today-cricket-news.html</loc>
+</url>
+
+<url>
+<loc>https://cricverse24.github.io/-CricVerse24-Pro/blog.html</loc>
+</url>
 
 </urlset>
