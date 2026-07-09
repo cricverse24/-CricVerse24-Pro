@@ -1,1 +1,23 @@
-
+{
+  "name": "CricVerse24",
+  "short_name": "CricVerse24",
+  "description": "Latest Cricket News, Live Scores & Match Updates",
+  "start_url": "/-CricVerse24-Pro/",
+  "scope": "/-CricVerse24-Pro/",
+  "display": "standalone",
+  "background_color": "#0D1117",
+  "theme_color": "#00C853",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
