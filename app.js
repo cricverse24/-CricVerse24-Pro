@@ -7,96 +7,40 @@ import {
 const apiKey = "31090fe2-48a3-4286-b565-aa560a422e64";
 
 // ================= LIVE MATCHES =================
-// Live Matches
 async function loadLiveMatches() {
   const live = document.getElementById("liveMatches");
-  live.innerHTML = "<p>Loading...</p>";
-
-  const CACHE_KEY = "cricverse_live_matches";
-  const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
-
-  // Check cache
-  const cached = localStorage.getItem(CACHE_KEY);
-
-  if (cached) {
-    const cacheData = JSON.parse(cached);
-
-    if (Date.now() - cacheData.time < CACHE_TIME) {
-      displayMatches(cacheData.data);
-      return;
-    }
-  }
+  live.innerHTML = "<p>Loading Live Matches...</p>";
 
   try {
     const response = await fetch(
       `https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`
     );
 
-    const data = await response.json();
+    const result = await response.json();
 
-    if (data.status === "failure") {
-      live.innerHTML = `<p>${data.reason}</p>`;
+    if (!result.data || result.data.length === 0) {
+      live.innerHTML = "<p>No Live Matches Right Now</p>";
       return;
     }
 
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({
-        time: Date.now(),
-        data: data.data,
-      })
-    );
+    live.innerHTML = "";
 
-    displayMatches(data.data);
+    result.data.forEach(match => {
+      live.innerHTML += `
+      <div class="card">
+        <h3>${match.name || "Cricket Match"}</h3>
+        <p><strong>Status:</strong> ${match.status || "N/A"}</p>
+        <p><strong>Teams:</strong> ${match.teams ? match.teams.join(" vs ") : "N/A"}</p>
+        <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
+      </div>`;
+    });
 
   } catch (error) {
     console.log(error);
     live.innerHTML = "<p>Unable to load live matches.</p>";
   }
-
-  function displayMatches(matches) {
-    
-
-if (matches.length === 0) {
-  live.innerHTML = `
-    <div class="card">
-      <h3>🏏 No Live Match Right Now</h3>
-      <p>Please check again in a few minutes.</p>
-    </div>
-  `;
-  return;
 }
-  
 
-    live.innerHTML = "";
-
-    matches.forEach(match => {
-      live.innerHTML += `
-<div class="card">
-    <h3>${match.name}</h3>
-
-    <p><strong>Status:</strong> ${match.status || "N/A"}</p>
-
-    <p><strong>Score:</strong><br>
-${
-  Array.isArray(match.score) && match.score.length
-    ? match.score.map(s =>
-        `${s.inning || ""}: ${s.r ?? "-"} / ${s.w ?? "-"} (${s.o ?? "-"} ov)`
-      ).join("<br>")
-    : "Live score not available yet"
-}
-</p>
-
-    <p><strong>Toss:</strong> ${match.toss || "Not Available"}</p>
-
-    <p><strong>Venue:</strong> ${match.venue || "Not Available"}</p>
-
-    <p><strong>Result:</strong> ${match.matchWinner || match.result || "Pending"}</p>
-
-    <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
-</div>
-`;
-  
 loadLiveMatches();
 
 // ================= NEWS =================
