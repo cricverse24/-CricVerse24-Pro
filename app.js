@@ -64,12 +64,26 @@ async function loadLiveMatches() {
 
     matches.forEach(match => {
       live.innerHTML += `
-        <div class="card">
-          <h3>${match.name}</h3>
-          <p><strong>Status:</strong> ${match.status}</p>
-          <p><strong>Match Type:</strong> ${match.matchType}</p>
-        </div>
-      `;
+<div class="card">
+    <h3>${match.name}</h3>
+
+    <p><strong>Status:</strong> ${match.status || "N/A"}</p>
+
+    <p><strong>Score:</strong> ${
+        match.score
+            ? match.score.map(s => `${s.inning}: ${s.r}/${s.w} (${s.o} ov)`).join("<br>")
+            : "Not Available"
+    }</p>
+
+    <p><strong>Toss:</strong> ${match.toss || "Not Available"}</p>
+
+    <p><strong>Venue:</strong> ${match.venue || "Not Available"}</p>
+
+    <p><strong>Result:</strong> ${match.matchWinner || match.result || "Pending"}</p>
+
+    <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
+</div>
+`;
     });
   }
 }
