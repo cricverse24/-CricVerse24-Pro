@@ -2,36 +2,36 @@ import { db } from "./firebase.js";
 import {
   collection,
   getDocs,
-  
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
 const apiKey = "31090fe2-48a3-4286-b565-aa560a422e64";
 
-// Live Matches
+// ================= LIVE MATCHES =================
 async function loadLiveMatches() {
   const live = document.getElementById("liveMatches");
-
-  live.innerHTML = "<p>Loading...</p>";
+  live.innerHTML = "<p>Loading Live Matches...</p>";
 
   try {
-  const response = await fetch(
-  `https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`
-);
+    const response = await fetch(
+      `https://api.cricapi.com/v1/currentMatches?apikey=${apiKey}&offset=0`
+    );
 
-    const data = await response.json();
+    const result = await response.json();
 
-    if (!data.data || data.data.length === 0) {
+    if (!result.data || result.data.length === 0) {
       live.innerHTML = "<p>No Live Matches Right Now</p>";
       return;
     }
 
     live.innerHTML = "";
 
-    data.data.forEach(match => {
+    result.data.forEach(match => {
       live.innerHTML += `
       <div class="card">
-        <h3>${match.name}</h3>
-        <p><strong>Status:</strong> ${match.status}</p>
-        <p><strong>Match Type:</strong> ${match.matchType}</p>
+        <h3>${match.name || "Cricket Match"}</h3>
+        <p><strong>Status:</strong> ${match.status || "N/A"}</p>
+        <p><strong>Teams:</strong> ${match.teams ? match.teams.join(" vs ") : "N/A"}</p>
+        <p><strong>Match Type:</strong> ${match.matchType || "N/A"}</p>
       </div>`;
     });
 
@@ -43,15 +43,13 @@ async function loadLiveMatches() {
 
 loadLiveMatches();
 
-
-// Latest News
+// ================= NEWS =================
 async function loadNews() {
   const newsDiv = document.getElementById("news");
   newsDiv.innerHTML = "<p>Loading news...</p>";
 
   try {
-const snapshot = await getDocs(collection(db, "news"));
-
+    const snapshot = await getDocs(collection(db, "news"));
 
     newsDiv.innerHTML = "";
 
@@ -59,16 +57,16 @@ const snapshot = await getDocs(collection(db, "news"));
       const news = doc.data();
 
       newsDiv.innerHTML += `
-        <div class="card">
-          <h3>${news.title}</h3>
-          <p>${news.content}</p>
-        </div>
-      `;
+      <div class="card">
+        <h3>${news.title}</h3>
+        <p>${news.content}</p>
+      </div>`;
     });
 
     if (snapshot.empty) {
       newsDiv.innerHTML = "<p>No news available.</p>";
     }
+
   } catch (error) {
     console.log(error);
     newsDiv.innerHTML = "<p>Unable to load news.</p>";
@@ -77,7 +75,7 @@ const snapshot = await getDocs(collection(db, "news"));
 
 loadNews();
 
-// Upcoming Matches
+// ================= UPCOMING MATCHES =================
 document.getElementById("upcoming").innerHTML = `
 <div class="card">
 <h3>Pakistan vs Australia</h3>
@@ -94,8 +92,10 @@ document.getElementById("upcoming").innerHTML = `
 <p>Saturday - 2:00 PM</p>
 </div>
 `;
-const searchInput = document.querySelector('input');
-const searchButton = document.querySelector('button');
+
+// ================= SEARCH =================
+const searchInput = document.querySelector("input");
+const searchButton = document.querySelector("button");
 
 const pages = {
   "babar azam": "babar-azam.html",
